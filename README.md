@@ -5,8 +5,12 @@ Build common machine learning models/algorithms from scratch using primarily bas
 ## Model Classes
 
 Models will be split into 4 primary classes:
+
     1) Supervised Classification
+
     2) Supervised Regression
+
     3) Unsupervised Classification
+
     4) Unsupervised Regression    
 
