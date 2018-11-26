@@ -25,4 +25,6 @@ Models will be split into 4 primary classes:
 
 4) Unsupervised Classification
 
+## Design Assumptions
 
+* All inputs will be lists or numpy arrays
