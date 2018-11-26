@@ -12,4 +12,8 @@ class TestBaseClass(TestCase):
         vector = np.array([1, 2, 3, 4, 5])
         value = self.model.mean(vector)
         self.assertEqual(value, (sum(vector) / len(vector)))
-    
+
+    def test_median(self):
+        vector = np.array([1, 2, 3, 4, 5])
+        value = self.model.median(vector)
+        self.assertEqual(value, 3)
