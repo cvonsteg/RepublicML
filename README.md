@@ -2,6 +2,12 @@
 
 Build common machine learning models/algorithms from scratch using primarily base Python, and occasionally the likes of Numpy for more efficient linear algebra operations.
 
+### TODO
+
+1) median, mode utils
+2) unittests for utils
+3) simple linear reg
+
 ## Model Classes
 
 Models will be split into 4 primary classes:
