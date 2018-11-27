@@ -1,19 +1,16 @@
 from unittest import TestCase
 import numpy as np
-from main.utils.base_model import BaseModel
+from main.utils.vector import Vector
 
 class TestBaseClass(TestCase):
     def setUp(self) -> None:
-        self.base_vector1 = np.array([1, 2, 3, 4, 5])
-        self.base_vector2 = np.array([9, 8, 7, 6, 5])
-        self.model = BaseModel(self.base_vector1, self.base_vector2)
+        self.v1 = Vector([1, 2, 3, 4, 5])
 
     def test_mean(self):
-        vector = np.array([1, 2, 3, 4, 5])
-        value = self.model.mean(vector)
-        self.assertEqual(value, (sum(vector) / len(vector)))
+        self.assertEqual(self.v1.mean, 3) 
 
     def test_median(self):
-        vector = np.array([1, 2, 3, 4, 5])
-        value = self.model.median(vector)
-        self.assertEqual(value, 3)
+        self.assertEqual(self.v1.median, 3)
+
+    def test_len(self):
+        self.assertEqual(len(self.v1), 55 ** 0.5)
