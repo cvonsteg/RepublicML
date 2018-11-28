@@ -1,6 +1,6 @@
 # Machine Learning from Scratch
 
-_"...if your starting point is unknown, and your end-point and intermediate stages are woven rtogether out of unknown material, there may be coherence, but knowledge is completely out of the question..."_ - Plato (Repbulic)
+_"...if your starting point is unknown, and your end-point and intermediate stages are woven together out of unknown material, there may be coherence, but knowledge is completely out of the question..."_ - Plato (Repbulic)
 
 Whilst newer ML libraries and packages make models out-of-the-box, accessible, and easy to use, they do not necessarily lend themselves to understanding the underlying components.  This project is an (ambitious) attempt and learning-by-doing...from scratch.
 
