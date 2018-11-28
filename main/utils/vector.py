@@ -1,20 +1,21 @@
-import numpy as np  
 import math
+import numpy as np
 
 class Vector:
     """Model base class with fundamental statistical summarisation functionality"""
     def __init__(self, *args):
-        if len(args) == 0:
-            self.vector = (0,0)
+        if not args:
+            self.vector = (0, 0)
         else:
             self.vector = args
 
+        self.magnitude = self._magnitude()
         self.mean = self._mean()
         self.median = self._median()
         self.variance = self._variance()
         self.stdev = self._st_dev()
-    
-    def __len__(self):
+
+    def _magnitude(self):
         """Returns the scalar length of a vector"""
         return math.sqrt(sum(i**2 for i in self.vector))
 
