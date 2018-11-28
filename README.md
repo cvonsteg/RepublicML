@@ -4,18 +4,11 @@ _"...if your starting point is unknown, and your end-point and intermediate stag
 
 Whilst newer ML libraries and packages make models out-of-the-box, accessible, and easy to use, they do not necessarily lend themselves to understanding the underlying components.  This project is an (ambitious) attempt and learning-by-doing...from scratch.
 
-I will attempt to build common machine learning models/algorithms from scratch using primarily base Python, and occasionally the likes of Numpy for more efficient linear algebra operations.
-
-### TODO
-
-1) median, mode utils
-2) unittests for utils
-3) simple linear reg
+I will attempt to build common machine learning models/algorithms from scratch using primarily base Python, and occasionally the likes of Numpy for more efficient linear algebra operations.  The goal is not to build something novel or faster, or more efficient.  Instead I want to do as much of the modelling myself, from first principles, in an attempt to understand the underlying mathematics, assumptions, and python data model at a far deeper level than I do at the offset.   
 
 ## Model Classes
 
 Models will be split into 4 primary classes:
-
 
 1) Supervised Regression
 
@@ -28,6 +21,10 @@ Models will be split into 4 primary classes:
 3) Unsupervised Regression    
 
 4) Unsupervised Classification
+
+## Dataclasses
+
+To get the ball rolling, I will start with numpy arrays as a base data class.  I may build on top of these, monkeypatching specific functionality.  At a later time I will attempt to build Vector and Matrix data classes from scratch in base python.  
 
 ## Design Assumptions
 
