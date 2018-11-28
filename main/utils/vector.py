@@ -1,6 +1,8 @@
 import math
 import numpy as np
 
+# Parking Vector class for now, as building all magic data model methods (__add__, __iter__, __sub__, etc.) is probably a project by itself.  
+
 class Vector:
     """Model base class with fundamental statistical summarisation functionality"""
     def __init__(self, *args):
