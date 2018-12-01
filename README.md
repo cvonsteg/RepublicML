@@ -18,7 +18,7 @@ i) Simple Linear Regression
 
 General Formula: Y = a + bX
 
-<img src="https://www.statisticshowto.datasciencecentral.com/wp-content/uploads/2009/11/linearregressionequations.bmp" width="220" height="135">
+<img src="https://www.statisticshowto.datasciencecentral.com/wp-content/uploads/2009/11/linearregressionequations.bmp" width="200" height="100">
 
 2) Supervised Classification
 
