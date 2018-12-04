@@ -7,13 +7,23 @@ class Regression(object):
     def __init__(self, x: np.array, y: np.array) -> None:
         self.x = x
         self.y = y
+        self.slope = None
+        self.y_int = None
+        self.y_hat = None
 
         if len(self.x) != len(self.y):
             self.x, self.y = self._truncate_vector_lenghts()
 
-    def y_hat(self, x_hat):
+    def predict(self, x_hat):
         """Calculates predicted y-value given regression coeffs"""
-        return (self._slope() * x_hat) + self._y_intercept()
+        self.y_hat = (self.slope * x_hat) + self.y_int
+        print("Model fit - y_hat prediction available")
+
+    def fit(self):
+        """Fits the model to the data, calculating slope and intercept coefficients"""
+        self.slope = self._slope()
+        self.y_int = self._y_intercept()
+        print('Slope and Intercept calculated - model ready to use')
 
     def coefficients(self):
         """Returns regression coefficients"""
@@ -27,6 +37,9 @@ class Regression(object):
         sum_of_x = math.sqrt(sum(self.x ** 2))
         sum_of_y = math.sqrt(sum(self.y ** 2))
         return (sum_of_x, sum_of_y)
+
+    def rmse(self):
+        pass
 
     def _slope(self):
         """Calculate slope of line"""
