@@ -6,3 +6,4 @@ y = np.array([2, 4, 6])
 slr = LinRegSimple(x, y)
 
 slr.y_hat(np.array([10, 11, 12, 13]))
+slr.coefficients()

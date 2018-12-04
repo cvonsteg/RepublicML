@@ -14,11 +14,6 @@ Models will be split into 4 primary classes:
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/438px-Linear_regression.svg.png" width="220" height="150">
 
-i) Simple Linear Regression
-
-General Formula: Y = a + bX
-
-<img src="https://www.statisticshowto.datasciencecentral.com/wp-content/uploads/2009/11/linearregressionequations.bmp" width="200" height="100">
 
 2) Supervised Classification
 
