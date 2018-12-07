@@ -30,13 +30,12 @@ class Regression(object):
         print(" --- Regression Coefficients --- ")
         print(" --- Slope: {}".format(self._slope()))
         print(" --- Intercept: {}".format(self._y_intercept()))
-        print(" -------------------------------")
 
     def sum_of_squares(self):
         """Calculates sum of squares for both parameters"""
         sum_of_x = math.sqrt(sum(self.x ** 2))
         sum_of_y = math.sqrt(sum(self.y ** 2))
-        return (sum_of_x, sum_of_y)
+        return sum_of_x, sum_of_y
 
     def rmse(self):
         pass
@@ -60,7 +59,6 @@ class Regression(object):
         sigma_x_sq = sum(self.x ** 2)
         intercept = ((sigma_y * sigma_x_sq) - (sigma_x * sigma_xy)) / ((n * sigma_x) - (sigma_x ** 2))
         return intercept
-
 
     def _truncate_vector_lenghts(self):
         """Finds the minimum length of the two vectors and truncates both to this length"""
