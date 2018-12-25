@@ -27,11 +27,9 @@ class TestLinReg(TestCase):
 
     def test_predict(self):
         self.slr.fit()
-        self.slr.predict(7)
-        self.assertEqual(self.slr.y_hat, 70)
+        self.assertEqual(self.slr.predict(7), 70)
 
     def test_rmse(self):
         self.slr.fit()
-        self.slr.predict(self.x)
         rmse = self.slr.rmse()
         self.assertEqual(rmse, 0)

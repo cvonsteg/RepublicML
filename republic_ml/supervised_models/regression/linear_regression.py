@@ -16,8 +16,7 @@ class Regression(object):
 
     def predict(self, x_hat):
         """Calculates predicted y-value given regression coeffs"""
-        self.y_hat = (self.slope * x_hat) + self.y_int
-        print("Model fit - y_hat prediction available")
+        return (self.slope * x_hat) + self.y_int
 
     def fit(self):
         """Fits the model to the data, calculating slope and intercept coefficients"""
@@ -39,10 +38,8 @@ class Regression(object):
 
     def rmse(self):
         """Calculates root mean squared error of model"""
-        if self.y_hat is not None:
-            return (sum((self.y - self.y_hat) ** 2) / len(self.x)) ** 0.5
-        else:
-            raise ValueError('No prediction (y_hat) exists')
+        self.y_hat = self.predict(self.x)
+        return (sum((self.y - self.y_hat) ** 2) / len(self.x)) ** 0.5
 
     def _slope(self):
         """Calculate slope of line"""
