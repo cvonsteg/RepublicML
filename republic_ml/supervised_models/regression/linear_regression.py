@@ -38,7 +38,11 @@ class Regression(object):
         return sum_of_x, sum_of_y
 
     def rmse(self):
-        pass
+        """Calculates root mean squared error of model"""
+        if self.y_hat is not None:
+            return (sum((self.y - self.y_hat) ** 2) / len(self.x)) ** 0.5
+        else:
+            raise ValueError('No prediction (y_hat) exists')
 
     def _slope(self):
         """Calculate slope of line"""
