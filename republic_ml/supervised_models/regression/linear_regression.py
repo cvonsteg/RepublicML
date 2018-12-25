@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class Regression(object):
@@ -40,6 +41,18 @@ class Regression(object):
         """Calculates root mean squared error of model"""
         self.y_hat = self.predict(self.x)
         return (sum((self.y - self.y_hat) ** 2) / len(self.x)) ** 0.5
+
+    def plot(self):
+        """Creates scatter plot and includes regression line"""
+        line_min = min(self.x) - round(0.3 * len(self.x))
+        line_max = max(self.x) + round(0.3 * len(self.x))
+        plt.scatter(self.x, self.y)
+        lin_range = np.arange(line_min, line_max + 1)
+        plt.plot(lin_range, self.predict(lin_range))
+        plt.xlabel('X')
+        plt.ylabel('Y')
+        plt.title('Regression Plot')
+        plt.show()
 
     def _slope(self):
         """Calculate slope of line"""
