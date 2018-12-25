@@ -48,7 +48,7 @@ class Regression(object):
         line_max = max(self.x) + round(0.3 * len(self.x))
         plt.scatter(self.x, self.y)
         lin_range = np.arange(line_min, line_max + 1)
-        plt.plot(lin_range, self.predict(lin_range))
+        plt.plot(lin_range, self.predict(lin_range), 'r-')
         plt.xlabel('X')
         plt.ylabel('Y')
         plt.title('Regression Plot')
