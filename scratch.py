@@ -17,10 +17,9 @@
             lower = midpoint - 1
             upper = midpoint + 1
             med =  (sorted_vector[lower] + sorted_vector[upper]) / 2
-        
         return med
 
     @staticmethod
     def mode(vector):
         """Returns most frequently occuring value in vector"""
-        
+        pass
