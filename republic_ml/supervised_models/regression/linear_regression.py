@@ -22,6 +22,8 @@ class LinearRegression(SupervisedModel):
             self.cost_dict[self.cost()] = self.theta
             self._gradient_descent_step()
 
+        self.theta = self.cost_dict[min(self.cost_dict)]
+
     def hypothesis(self, x):
         return np.dot(x, self.theta.T)
 
