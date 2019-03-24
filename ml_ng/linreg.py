@@ -3,9 +3,9 @@ import numpy as np
 
 class Regression:
     def __init__(self, x, y, alpha, n_iter):
-        self.x = x
+        self.x = np.matrix([np.ones(len(x)), x])
         self.y = y
-        self.m = self.x.shape[0]
+        self.m = self.x.shape[1]
         self.theta = np.zeros(self.m)
         self.alpha = alpha
 
@@ -15,18 +15,23 @@ class Regression:
 
     def fit(self):
         """Execute gradient descent algorithm to estimate theta coefficients"""
-        # Alther values of theta 
+        # Alther values of theta
         # call cost_function() to caluclate cost
-        costs = []
+        # TO MAKE MORE EFFICIENT: could make generator which only store minimum
+        # cost locally. but for plotting purposes this works well
+        costs = {}
         for i in np.arange(n_iter):
             new_theta = self._gradient_descent()
-            costs.append(self.cost_function(new_theta))
+            t, c = self._calculate_cost(new_theta)
+            costs[t] = c
 
-    def cost_function(self, theta):
-        """Function to be minimized during regression"""
-        # cost = (1 / 2m) * (np.dot(theta.T, x) - y) ** 2
-        cost = (1 / 2 * self.m) * (np.dot(theta.T, self.x) - self.y) ** 2
-        return cost
+    def _clalculate_cost(self, theta):
+        """
+        Function to be minimized during regression:
+            J(theta) = 1 / 2m * SUM((h_theta(x) - y)^2)
+        """
+        cost = (1 / 2 * self.m) * np.square(np.dot(theta, self.x) - self.y).sum()
+        return theta, cost
 
     def _gradient_descent(self):
         """Batch Gradient Descent equation to calculate theta"""
@@ -34,4 +39,3 @@ class Regression:
         # err = h_theta - self.y
         # del_j = np.dot(err, self.x)
         # theta_new = theta - ((alpha / m) * (del_j))
-
