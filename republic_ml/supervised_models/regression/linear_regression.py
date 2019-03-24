@@ -17,10 +17,14 @@ class LinearRegression(SupervisedModel):
         # call cost_function() to caluclate cost
         # TO MAKE MORE EFFICIENT: could make generator which only store minimum
         # cost locally. but for plotting purposes this works well
+
+        # # TODO: WHILE COST > 0
         self.cost_dict = {}
         for i in np.arange(n_iter):
-            self.cost_dict[self.cost()] = self.theta
+            cost = self.cost()
+            self.cost_dict[cost] = self.theta
             self._gradient_descent_step()
+            print(f"Theta: {self.theta}, Cost: {cost}")
 
         self.theta = self.cost_dict[min(self.cost_dict)]
 
