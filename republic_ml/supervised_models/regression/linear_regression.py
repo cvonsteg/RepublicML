@@ -1,80 +1,44 @@
-import math
 import numpy as np
-import matplotlib.pyplot as plt
+from republic_ml.supervised_models.supervised_model import SupervisedModel
 
 
-class Regression(object):
-    """Simple Linear Regression class"""
-    def __init__(self, x: np.array, y: np.array) -> None:
-        self.x = x
-        self.y = y
-        self.slope = None
-        self.y_int = None
-        self.y_hat = None
+class LinearRegression(SupervisedModel):
+    def __init__(self, x, y, alpha):
+        super().__init__(x, y, alpha)
 
-        if len(self.x) != len(self.y):
-            self.x, self.y = self._truncate_vector_lenghts()
+    def predict(self, new_x):
+        """Predict value of new_x"""
+        new_x = np.matrix([np.ones(len(new_x)), new_x]).T
+        return self.hypothesis(new_x)
 
-    def predict(self, x_hat):
-        """Calculates predicted y-value given regression coeffs"""
-        return (self.slope * x_hat) + self.y_int
+    def fit(self, n_iter):
+        """Execute gradient descent algorithm to estimate theta coefficients"""
+        # Alther values of theta
+        # call cost_function() to caluclate cost
+        # TO MAKE MORE EFFICIENT: could make generator which only store minimum
+        # cost locally. but for plotting purposes this works well
+        self.cost_dict = {}
+        for i in np.arange(n_iter):
+            self.cost_dict[self.cost()] = self.theta
+            self._gradient_descent_step()
 
-    def fit(self):
-        """Fits the model to the data, calculating slope and intercept coefficients"""
-        self.slope = self._slope()
-        self.y_int = self._y_intercept()
-        print('Slope and Intercept calculated - model ready to use')
+    def hypothesis(self, x):
+        return np.dot(x, self.theta.T)
 
-    def coefficients(self):
-        """Returns regression coefficients"""
-        print(" --- Regression Coefficients --- ")
-        print(" --- Slope: {}".format(self._slope()))
-        print(" --- Intercept: {}".format(self._y_intercept()))
+    def cost(self):
+        """
+        Function to be minimized during regression:
+            J(theta) = 1 / 2m * SUM((h_theta(x) - y)^2)
+        """
+        cost = (1 / 2 * self.m) * np.square(self.hypothesis(self.x) - self.y).sum()
+        return cost
 
-    def sum_of_squares(self):
-        """Calculates sum of squares for both parameters"""
-        sum_of_x = math.sqrt(sum(self.x ** 2))
-        sum_of_y = math.sqrt(sum(self.y ** 2))
-        return sum_of_x, sum_of_y
-
-    def rmse(self):
-        """Calculates root mean squared error of model"""
-        self.y_hat = self.predict(self.x)
-        return (sum((self.y - self.y_hat) ** 2) / len(self.x)) ** 0.5
-
-    def plot(self):
-        """Creates scatter plot and includes regression line"""
-        line_min = min(self.x) - round(0.3 * len(self.x))
-        line_max = max(self.x) + round(0.3 * len(self.x))
-        plt.scatter(self.x, self.y)
-        lin_range = np.arange(line_min, line_max + 1)
-        plt.plot(lin_range, self.predict(lin_range), 'r-')
-        plt.xlabel('X')
-        plt.ylabel('Y')
-        plt.title('Regression Plot')
-        plt.show()
-
-    def _slope(self):
-        """Calculate slope of line"""
-        n = len(self.x)
-        sigma_y = self.y.sum()
-        sigma_x = self.x.sum()
-        sigma_xy = sum(self.x * self.y)
-        sigma_x_sq = sum(self.x ** 2)
-        slope = ((n * sigma_xy) - (sigma_x * sigma_y)) / ((n * sigma_x_sq) - (sigma_x ** 2))
-        return slope
-
-    def _y_intercept(self):
-        """Calculate y-intercept of line"""
-        n = len(self.x)
-        sigma_y = self.y.sum()
-        sigma_x = self.x.sum()
-        sigma_xy = sum(self.x * self.y)
-        sigma_x_sq = sum(self.x ** 2)
-        intercept = ((sigma_y * sigma_x_sq) - (sigma_x * sigma_xy)) / ((n * sigma_x) - (sigma_x ** 2))
-        return intercept
-
-    def _truncate_vector_lenghts(self):
-        """Finds the minimum length of the two vectors and truncates both to this length"""
-        min_len = min(len(self.x), len(self.y))
-        return self.x[:min_len], self.y[:min_len]
+    def _gradient_descent_step(self):
+        """Batch Gradient Descent equation to calculate theta"""
+        # h_theta = np.dot(self.theta.T, self.x)
+        # err = h_theta - self.y
+        # del_j = np.dot(err, self.x)
+        # theta_new = theta - ((alpha / m) * (del_j))
+        err = self.hypothesis(self.x) - self.y
+        del_j = np.dot(err.T, self.x)
+        self.theta = self.theta - ((self.alpha / self.m) * del_j)

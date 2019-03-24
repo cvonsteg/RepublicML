@@ -113,3 +113,8 @@ venv.bak/
 
 # local venv
 .venv/
+
+# scratch files
+scratch*.py
+
+old_stuff/

@@ -1,2 +1,2 @@
-from .classification import *
-from .regression import *
+from .regression.linear_regression import LinearRegression
+from .supervised_model import SupervisedModel
