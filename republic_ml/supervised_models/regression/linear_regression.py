@@ -17,7 +17,6 @@ class LinearRegression(SupervisedModel):
         # call cost_function() to caluclate cost
         # TO MAKE MORE EFFICIENT: could make generator which only store minimum
         # cost locally. but for plotting purposes this works well
-
         # # TODO: WHILE COST > 0
         self.cost_dict = {}
         for i in np.arange(n_iter):
@@ -36,7 +35,9 @@ class LinearRegression(SupervisedModel):
         Function to be minimized during regression:
             J(theta) = 1 / 2m * SUM((h_theta(x) - y)^2)
         """
-        cost = (1 / 2 * self.m) * np.square(self.hypothesis(self.x) - self.y).sum()
+        const = (1 / (2 * self.m))
+        square_err = np.square(self.hypothesis(self.x) - self.y)
+        cost = const * (square_err).sum()
         return cost
 
     def _gradient_descent_step(self):

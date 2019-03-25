@@ -1,19 +1,29 @@
 import numpy as np
-from ml_ng.linear_regression import Regression
-from ml_ng.supervised_model import SupervisedModel
-x = np.random.randint(low=0, high=5, size=10)
-y = np.matrix(np.random.randint(low=5, high=10, size=10)).T
+from republic_ml.supervised_models import LinearRegression
+x = np.random.randint(low=0, high=100, size=100)
+y = np.matrix(np.random.randint(low=0, high=10, size=100))
 
-r = Regression(x=x, y=y, alpha=0.01, n_iter=1000)
+r = LinearRegression(x=x, y=y, alpha=0.01)
 
 r.x
 
 r.y
+r.cost()
+r.fit(n_iter=100)
 
 r.theta
 
-r.hypothesis(r.x)
+err = r.hypothesis(r.x) - r.y
+err
+np.square(err)
 
+delj =np.dot(err.T, r.x)
+delj.sum() * 0.01/10
+1 / (2 * r.m)
+np.square(r.hypothesis(r.x) - r.y).sum() * 0.05
+(r.alpha / r.m) * delj
+r.m
+r.theta -
 r.predict([4, 5, 6, 7])
 
 r.cost()
