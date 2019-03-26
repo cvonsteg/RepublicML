@@ -32,7 +32,9 @@ class LinearRegression(SupervisedModel):
                 [i for i in np.arange(n_iter)],
                 [v for v in self.cost_dict.keys()]
             )
-            plt.title("Cost as a function of gradient descent iterations")
+            plt.title("Cost vs gradient descent iterations")
+            plt.xlabel("Iterations")
+            plt.ylabel("Cost")
             plt.show()
 
     def hypothesis(self, x):
