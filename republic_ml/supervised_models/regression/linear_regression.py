@@ -12,20 +12,24 @@ class LinearRegression(SupervisedModel):
         new_x = np.matrix([np.ones(len(new_x)), new_x]).T
         return self.hypothesis(new_x)
 
-    def fit(self, n_iter, plot=False):
+    def fit(self, method='gradient descent', n_iter, plot=False):
         """
         Conducts n_iter iterations of gradient descent steps to estimate theta.
         Initializes a dict object with keys representing calculated cost,
         and values representing corresponding theta coefficients.
         """
-        self.cost_dict = {}
-        for i in np.arange(n_iter):
-            cost = self.cost()
-            self.cost_dict[cost] = self.theta
-            self._gradient_descent_step()
-            print(f"Theta: {self.theta}, Cost: {cost}")
+        if method == 'gradient descent':
+            self.cost_dict = {}
+            for i in np.arange(n_iter):
+                cost = self.cost()
+                self.cost_dict[cost] = self.theta
+                self._gradient_descent_step()
+                print(f"Theta: {self.theta}, Cost: {cost}")
 
-        self.theta = self.cost_dict[min(self.cost_dict)]
+            self.theta = self.cost_dict[min(self.cost_dict)]
+
+        else:
+            self.theta = self._normal_equation()
 
         if plot:
             plt.plot(
@@ -38,6 +42,10 @@ class LinearRegression(SupervisedModel):
             plt.show()
 
     def hypothesis(self, x):
+        """
+        Returns hypothesis, also known as a prediction for a given
+        input value of x.
+        """
         return np.dot(x, self.theta.T)
 
     def cost(self):
@@ -61,3 +69,13 @@ class LinearRegression(SupervisedModel):
         err = self.hypothesis(self.x) - self.y
         del_j = np.dot(err.T, self.x)
         self.theta = self.theta - ((self.alpha / self.m) * del_j)
+
+    def _normal_equation(self):
+        """
+        Attempts to solve for Theta coefficients using the normal
+        equation:
+            Theta = (X.T * X)^-1 * X.T * y
+        """
+        X_T = self.x.T
+        X_inv = np.invert(np.dot(X_T, self.x).astype(int))
+        return X_inv * X_T * self.y
