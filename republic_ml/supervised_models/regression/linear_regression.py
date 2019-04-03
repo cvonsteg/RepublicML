@@ -12,7 +12,7 @@ class LinearRegression(SupervisedModel):
         new_x = np.matrix([np.ones(len(new_x)), new_x]).T
         return self.hypothesis(new_x)
 
-    def fit(self, method='gradient descent', n_iter, plot=False):
+    def fit(self, method='gradient descent', n_iter=100, plot=False):
         """
         Conducts n_iter iterations of gradient descent steps to estimate theta.
         Initializes a dict object with keys representing calculated cost,
