@@ -15,11 +15,26 @@ class SupervisedModel:
     def fit(self):
         pass
 
-    def hypothesis(self):
+    def hypothesis(self, x):
+        """
+        Returns hypothesis, also known as a prediction for a given
+        input value of x.
+        """
         pass
 
-    def cost_function(self):
+    def cost(self):
+        """
+        Represents how large the error is between the hypothesis and labelled
+        examples.
+        Cost function (J(theta)) to be minimized during regression:
+            J(theta) = 1 / 2m * ((h_theta(x) - y) ** 2)
+        """
         pass
 
     def _gradient_descent_step(self):
+        """
+        Batch Gradient Descent equation to calculate theta:
+            theta_i := theta_i - (alpha / m) * ((h_theta(x) - y) * x)
+
+        """
         pass
