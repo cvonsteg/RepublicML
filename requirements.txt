@@ -1,3 +1,5 @@
+numpy
 pytest
 pre-commit-hooks
+pre-commit
 black
