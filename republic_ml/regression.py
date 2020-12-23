@@ -1,49 +1,87 @@
-from typing import Optional
-
 import numpy as np
-from core.cost_functions import MSE
-from core.tensor import Tensor
+
+from republic_ml.core.cost_functions import MSEMixin
+from republic_ml.core.tensor import Tensor
 
 
 class LinearRegression(MSEMixin):
+    """
+    Class for training and predicting values via simple linear regression
+
+    """
+
     def __init__(self, x: Tensor, y: Tensor) -> None:
-        """All values initialised into long arrays/matrices"""
+        """
+        Parameters
+        ----------
+        x : Tensor
+            Tensor of input features
+        y : Tensor
+            Tensor of expected outputs for given input values
+        """
         # Before formatting, check input vectors
         self._check_input_vectors(x, y)
         # To allow matrix operations, constant value of 1
         # is being added to every row of input x vector
         self.x = self._format_x_matrix(x)
-        self.y = np.matrix(y).T
+        self.y = y
         # Array of thetas initialized to 0
         self.theta = np.zeros(self.x.shape[1])
         # constant m represents number of input values
         self.m = self.x.shape[0]
 
     def predict(self, x: Tensor) -> Tensor:
-        x = self._format_x_matrix(x)
-        return self.hypothesis(x=x)
+        """
+        Predict values for unseen inputs
 
-    def hypothesis(self, x: Optional[Tensor] = None) -> Tensor:
+        Parameters
+        ----------
+        x : Tensor
+            Tensor array of new values to be predicted
+
+        Returns
+        -------
+        Tensor
+            Tensor arrray of new predicted values
+        """
+        x = self._format_x_matrix(x)
+        return self._dot_product(x, self.theta.T)
+
+    @property
+    def hypothesis(self) -> Tensor:
         """
         Hypothesis is equivalent to the sum of x * theta,
         in matrix terms, this equates to the dot product
         """
-        if x is None:
-            x = self.x
-        return np.dot(x, self.theta.T)
+        return self._dot_product(self.x, self.theta.T)
 
-    def fit(self, method="gradient_descent", n_iter=100) -> None:
+    def fit_gd(self, lr: float = 0.001, epoch=100) -> None:
         """
-        Fit theta to input values of x using cost function defined in method
-        """
-        pass
+        Fit theta to input values of x using gradient descent
 
-    def cost(self) -> float:
+        Parameters
+        ----------
+        lr : float
+            Learning Rate, which determines how large of a step the GD algorithm takes
+
+        epoch : int
+            Number of epoch iterations to use for coefficient fitting
         """
-        Calculate loss/cost of current hypothesis.
-        For purposes of linear regression, this will be done using MSE
+        print(f"Starting coefficients: {self.theta}")
+        for epoch in range(epoch):
+            print(f"Epoch: {epoch}")
+            print(f"Cost: {self.cost()}")
+            theta_0_new = self.theta[0] - (lr * self.d_theta0())
+            theta_1_new = self.theta[1] - (lr * self.d_theta1())
+            self.theta[0], self.theta[1] = theta_0_new, theta_1_new
+            print(f"Coefficients: {self.theta}")
+
+    @staticmethod
+    def _dot_product(x: Tensor, y: Tensor) -> Tensor:
         """
-        return MSE().cost(predicted=self.hypothesis(), actual=self.y)
+        Return the dot product of 2 tensors
+        """
+        return np.dot(x, y)
 
     @staticmethod
     def _format_x_matrix(x) -> Tensor:

@@ -19,4 +19,10 @@ class MSE(Cost):
 
 class MSEMixin:
     def cost(self) -> float:
-        return (1 / (2 * self.m)) * sum(np.square(self.hypothesis - self.y))
+        return (1 / (2 * self.m)) * np.sum(np.square(self.hypothesis - self.y))
+
+    def d_theta0(self):
+        return (1 / self.m) * np.sum(self.hypothesis - self.y)
+
+    def d_theta1(self):
+        return (1 / self.m) * np.sum((self.hypothesis - self.y) * self.x)
